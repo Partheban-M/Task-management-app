@@ -15,8 +15,27 @@ const getTasks = async (userId) => {
 
   return tasks;
 };
+const updateTask = async (taskId, userId, updateData) => {
+  const task = await Task.findOneAndUpdate(
+    {
+      _id: taskId,
+      user: userId,
+    },
+    updateData,
+    {
+      new: true,
+    }
+  );
+
+  if (!task) {
+    throw new Error('Task not found');
+  }
+
+  return task;
+};
 
 module.exports = {
   createTask,
   getTasks,
+  updateTask,
 };
