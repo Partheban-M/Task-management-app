@@ -33,9 +33,24 @@ const updateTask = async (taskId, userId, updateData) => {
 
   return task;
 };
+const deleteTask = async (taskId, userId) => {
+  const task = await Task.findOneAndDelete({
+    _id: taskId,
+    user: userId,
+  });
+
+  if (!task) {
+    throw new Error('Task not found');
+  }
+
+  return task;
+};
+
 
 module.exports = {
   createTask,
   getTasks,
   updateTask,
+  deleteTask,
+
 };
